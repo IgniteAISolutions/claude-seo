@@ -31,7 +31,7 @@ Google evaluates the **75th percentile** of page visits — 75% of visits must m
 
 - Unoptimized hero images (compress, WebP/AVIF, preload)
 - Render-blocking CSS/JS (defer, async, critical CSS)
-- Slow server response TTFB >200ms (edge CDN, caching)
+- Slow server response TTFB >800ms (edge CDN, caching)
 - Third-party scripts blocking render
 - Web font loading delay
 

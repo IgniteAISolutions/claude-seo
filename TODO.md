@@ -70,4 +70,22 @@ Remaining phases (deferred):
 
 ---
 
-*Last updated: March 12, 2026*
+*Last updated: September 2, 2026*
+
+> Baseline note: the v1.5.0 currency pass (Sept 2026) closed the February 2026 research
+> backlog referenced above. Re-baseline research before treating any item here as current.
+
+## Coverage status (v1.5.0 currency pass, Sept 2026)
+
+All `skills/seo-plan/assets/*.md` have now been reviewed and carry the shared
+**Modern Search Readiness** section (AI crawler access, answer-first structure, fact
+density, entity graph, information gain, AI-surface measurement) plus an industry-specific
+note. Date headers were bumped only after actual review.
+
+Remaining known work:
+- [ ] CHANGELOG.md historical entries contain internal inconsistencies (the v1.4.0 note
+      says installers pin `v1.3.0` while they pin `v1.4.0`; dependency minimums quoted
+      there have since moved in `requirements.txt`). Left unedited on purpose: a changelog
+      is a historical record, not a document to retrofit.
+- [ ] No automated test suite. Hook behaviour is currently verified by hand against
+      fixtures; worth formalising as pytest cases.

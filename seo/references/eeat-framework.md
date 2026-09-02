@@ -26,6 +26,10 @@ The December 2025 core update was described as a "watershed moment" that:
 | Health/YMYL | 67% average decline |
 | E-commerce | 52% average decline |
 
+> **Sourcing caveat:** these are third-party industry aggregates, not figures published by
+> Google. Attribute them as such in client deliverables, or omit them. An audit that models
+> sloppy sourcing while recommending rigorous sourcing undermines its own advice.
+
 **Key takeaway:** Even entertainment and lifestyle content now requires demonstrated expertise. Generic content no longer ranks.
 
 ## YMYL (Your Money or Your Life)
@@ -167,6 +171,66 @@ The December 2025 update elevated the "Experience" dimension as a key differenti
 - Process documentation showing actual work done
 
 **Why:** AI can generate expertise-sounding content but cannot fabricate genuine experience.
+
+---
+
+## Machine-Readable E-E-A-T
+
+**The most common E-E-A-T failure is not missing credentials. It is credentials that exist
+only in prose.** A bio paragraph is read by humans; it is not parsed into structured claims
+by machines. Search engines and LLMs resolving "who stands behind this page" need explicit
+markup.
+
+Every E-E-A-T signal you can prove should exist in **both** places: visible on the page, and
+as a structured property on a `Person` node.
+
+| E-E-A-T dimension | Visible on page | Structured property |
+|-------------------|-----------------|---------------------|
+| Experience | First-hand account, original photos, process documentation | `Person` linked as `author` on the `Article` |
+| Expertise | Credentials in byline and bio | `hasCredential`, `knowsAbout`, `alumniOf` |
+| Authoritativeness | Awards, press, external profiles | `award`, `sameAs` (Wikidata, publications, LinkedIn) |
+| Trustworthiness | Contact details, dates, corrections | `Organization` with `contactPoint`; honest `dateModified` |
+
+**Implementation:** see `entity-schema-graph.md` for the connected `@graph` pattern and the
+full `Person` node specification.
+
+### Audit rules
+- [ ] Every article has a named author resolving to a `Person` node by `@id` (never a bare name string)
+- [ ] Author credentials, awards and external profiles appear in markup **and** on the page
+- [ ] `sameAs` includes a Wikidata QID where one legitimately exists
+- [ ] Author entities reflect **current** staff — markup naming a departed author is a Critical drift error
+- [ ] Claims in markup never exceed what the page actually shows
+
+---
+
+## Information Gain
+
+Google's Information Gain patent (US20200349181A1) scores a document on the **additional,
+non-redundant** information it adds relative to what the user has already seen for that query.
+
+This is the mechanism that decides between two pages with equal credentials. A page that
+restates the same definitions and generic examples as the incumbent top 10 has an information
+gain approaching zero, and there is no algorithmic reason to promote it.
+
+**It is also the strongest overlap between E-E-A-T and AI citation:** original material is
+simultaneously what quality raters reward and what generative engines quote.
+
+### What creates information gain
+- Proprietary data, surveys, benchmarks
+- Named case outcomes with real numbers
+- First-hand testing and process documentation
+- Novel frameworks or original technical analysis
+- Expert commentary that takes a position
+
+### What creates none
+- Restated definitions available everywhere
+- Generic examples and hypotheticals
+- Summarised competitor content
+- Advice with no specifics attached
+
+**Audit question for every page:** *what does this contain that the current top 10 do not?*
+If there is no answer, the page has an originality problem, not a keyword problem. See
+`aeo-geo-benchmarks.md`.
 
 ---
 

@@ -146,10 +146,10 @@ GEO is the emerging discipline of optimizing content specifically for AI-generat
 ### E-E-A-T Breakdown
 | Factor | Score | Key Signals |
 |--------|-------|-------------|
-| Experience | XX/25 | ... |
+| Experience | XX/20 | ... |
 | Expertise | XX/25 | ... |
 | Authoritativeness | XX/25 | ... |
-| Trustworthiness | XX/25 | ... |
+| Trustworthiness | XX/30 | ... |
 
 ### AI Citation Readiness: XX/100
 

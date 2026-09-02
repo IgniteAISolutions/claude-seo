@@ -1,4 +1,4 @@
-<!-- Updated: 2026-03-06 -->
+<!-- Updated: 2026-09-02 -->
 
 ![Claude SEO](screenshots/cover-image.jpeg)
 
@@ -91,7 +91,7 @@ claude
 | `/seo sitemap generate` | Generate new sitemap with industry templates |
 | `/seo schema <url>` | Detect, validate, and generate Schema.org markup |
 | `/seo images <url>` | Image optimization analysis |
-| `/seo technical <url>` | Technical SEO audit (8 categories) |
+| `/seo technical <url>` | Technical SEO audit (9 categories) |
 | `/seo content <url>` | E-E-A-T and content quality analysis |
 | `/seo geo <url>` | AI Overviews / Generative Engine Optimization |
 | `/seo plan <type>` | Strategic SEO planning (saas, local, ecommerce, publisher, agency) |
@@ -156,6 +156,7 @@ Updated to September 2025 Quality Rater Guidelines:
 - Validation against Google's supported types
 - Generation with templates
 - Deprecation awareness:
+  - Full current list (11 deprecated/retired/restricted types): `seo/references/schema-types.md`
   - HowTo: Deprecated (Sept 2023)
   - FAQ: Restricted to gov/health sites (Aug 2023)
   - SpecialAnnouncement: Deprecated (July 2025)
@@ -177,8 +178,8 @@ New for 2026 - optimize for:
 
 ```
 ~/.claude/skills/seo/         # Main skill
-~/.claude/skills/seo-*/       # Sub-skills (12 total)
-~/.claude/agents/seo-*.md     # Subagents (6 total)
+~/.claude/skills/seo-*/       # Sub-skills (12 total, +1 extension)
+~/.claude/agents/seo-*.md     # Subagents (7 total)
 ```
 
 ### Video & Live Schema (New)

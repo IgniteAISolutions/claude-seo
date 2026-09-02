@@ -1,135 +1,184 @@
-<!-- Updated: 2026-02-07 -->
-# Google SEO Quick Reference (February 2026)
+<!-- Updated: 2026-09-02 -->
+# Google Search Quick Reference (September 2026)
 
-Concise reference guide for subagents. Summarizes key Google Search concepts,
-requirements, and best practices. Not a reproduction of Google's documentation —
-see Official Documentation Links at the bottom for full details.
+Concise reference for subagents. Summarizes how Google Search works today, including
+the generative serving layer. Not a reproduction of Google's documentation — see
+Official Documentation Links at the bottom.
+
+> **Single sources of truth.** Do not restate details that live elsewhere in this repo,
+> or the files drift apart:
+> - Schema type status → `seo/references/schema-types.md`
+> - Entity graphs and author markup → `seo/references/entity-schema-graph.md`
+> - E-E-A-T scoring → `seo/references/eeat-framework.md`
+> - AEO/GEO benchmarks → `seo/references/aeo-geo-benchmarks.md`
+> - Search Console AI reporting → `seo/references/search-console-ai-reports.md`
+> - CWV detail → `seo/references/cwv-thresholds.md`
 
 ---
 
 ## How Google Search Works
 
-Google Search operates in three stages: **Crawling** (Googlebot discovers pages by following links and reading sitemaps), **Indexing** (Google processes and stores page content, metadata, and signals in its search index), and **Serving** (when a user searches, Google's algorithms rank indexed pages by relevance, quality, and usability to return the most useful results). Pages must be crawlable and indexable to appear in search results.
+**Crawling** (Googlebot discovers pages via links and sitemaps) → **Indexing** (content,
+metadata and signals are processed and stored) → **Serving** (ranking systems return
+results for a query). Pages must be crawlable and indexable to appear at all.
+
+**Since 2024 the serving stage is no longer only ten blue links.** The same index now
+feeds several surfaces:
+
+| Surface | How it selects | Implication |
+|---------|----------------|-------------|
+| Classic organic results | Ranked list by relevance, quality, usability | Traditional SEO |
+| Featured snippets / answer boxes | Passage-level extraction from a ranked page | Needs extractable answer blocks |
+| **AI Overviews** | Retrieval and synthesis across multiple sources, with citations | Classic rank helps but does not guarantee citation |
+| **AI Mode** | Query fan-out into many sub-queries, each retrieved and synthesized | Rewards broad topical coverage with depth per sub-question |
+
+**Consequences for audits:**
+- Ranking and citation are **separate outcomes**. A page can hold position 3 and never be
+  cited; a page below the fold can be cited.
+- Impressions inside AI surfaces are reported separately in Search Console, and **carry no
+  click data**. Never compute a CTR for them.
+- Zero-click behaviour is expected: rising AI impressions alongside falling clicks is a
+  surface shift, not necessarily a ranking loss.
+
+See `seo/references/aeo-geo-benchmarks.md` and `seo/references/search-console-ai-reports.md`.
 
 ---
 
 ## Google Search Essentials
 
-Formerly known as "Webmaster Guidelines." Key requirements:
+Formerly "Webmaster Guidelines."
 
 ### Technical Requirements
-- Pages must be accessible to Googlebot (not blocked by robots.txt or noindex)
-- Pages must return HTTP 200 status for indexable content
-- Content must be in a format Google can process (HTML preferred, JS-rendered content supported but slower)
-- Pages must be served over HTTPS
+- Accessible to Googlebot (not blocked by robots.txt or `noindex`)
+- Returns HTTP 200 for indexable content
+- Format Google can process (HTML preferred; JS-rendered content supported but slower)
+- Served over HTTPS
+- **Mobile-first indexing is 100% complete** (5 July 2024) — all sites are crawled and
+  indexed with the mobile Googlebot user-agent
+
+### AI crawler access (separate from Googlebot)
+Googlebot access does **not** grant access to third-party AI engines. Each has its own
+user-agent, and blocking one removes you from that engine entirely.
+
+| Crawler | Owner | Purpose |
+|---------|-------|---------|
+| `Googlebot` | Google | Search index; also feeds AI Overviews and AI Mode |
+| `Google-Extended` | Google | Controls Gemini/Vertex training use, **not** AI Overview eligibility |
+| `GPTBot` | OpenAI | Training and retrieval |
+| `OAI-SearchBot` | OpenAI | ChatGPT search retrieval |
+| `ChatGPT-User` | OpenAI | User-initiated browsing |
+| `ClaudeBot` | Anthropic | Claude crawling |
+| `Claude-User` | Anthropic | User-initiated fetch |
+| `Claude-SearchBot` | Anthropic | Claude search retrieval |
+| `PerplexityBot` | Perplexity | Perplexity index |
+| `Applebot-Extended` | Apple | Controls Apple AI training use |
+| `CCBot` | Common Crawl | Open crawl corpus |
+| `Bytespider` | ByteDance | ByteDance AI |
+
+**Default recommendation:** allow the search/retrieval agents (`OAI-SearchBot`,
+`ClaudeBot`, `Claude-SearchBot`, `PerplexityBot`, `GPTBot`). Training-only crawlers are a
+licensing decision for the client, not a technical default. Blocking a retrieval agent is
+**Critical** unless the client chose it deliberately.
+
+Also check hosting-layer blocking (CDN bot rules can block AI crawlers even when
+robots.txt allows them) and the Search Console **AI features toggle**.
 
 ### Spam Policies
-- No cloaking (showing different content to Googlebot vs users)
-- No doorway pages (pages created solely to rank for specific queries)
-- No hidden text or links
-- No keyword stuffing
-- No link spam (buying links, excessive link exchanges)
-- No scraped or auto-generated content without added value
-- No sneaky redirects
-- No thin affiliate pages
+No cloaking, doorway pages, hidden text/links, keyword stuffing, link spam, scraped or
+auto-generated content without added value, sneaky redirects, or thin affiliate pages.
 
-### Key Best Practices
-- Create content for users, not search engines
-- Make your site easy to navigate with a clear hierarchy
-- Use descriptive, unique titles and meta descriptions per page
-- Use heading tags (H1-H6) to structure content logically
-- Optimize images with alt text and appropriate file sizes
-- Ensure mobile-friendly responsive design
-- Improve page load speed (Core Web Vitals)
-- Submit an XML sitemap to Google Search Console
-- Use structured data (JSON-LD) to help Google understand content
+Scaled content abuse, site reputation abuse and expired domain abuse are explicitly
+covered policies.
 
 ---
 
 ## Content Quality Signals
 
-Google evaluates content quality through the E-E-A-T framework:
+Google evaluates quality through **E-E-A-T**: Experience, Expertise, Authoritativeness,
+Trustworthiness. Trust is the most important, and is inferred from the other three plus
+direct trust indicators. Full criteria in `seo/references/eeat-framework.md`.
 
-- **Experience**: Does the content creator have first-hand experience with the topic? (Original photos, personal stories, demonstrated use)
-- **Expertise**: Does the creator have relevant knowledge or credentials? (Professional background, technical depth, accurate sourcing)
-- **Authoritativeness**: Is the creator or site recognized as a go-to source? (Industry citations, brand mentions, expert recognition)
-- **Trustworthiness**: Is the content and site reliable and transparent? (Contact info, secure site, editorial standards, accurate claims)
+> **YMYL**: health, finance, safety, legal, civic. Held to the highest standard.
+> **December 2025**: E-E-A-T assessment extends to all competitive queries, not only YMYL.
 
-> **YMYL Note**: "Your Money or Your Life" topics (health, finance, safety, legal) are held to the highest E-E-A-T standards. Inaccurate YMYL content can cause real-world harm, so Google applies stricter quality thresholds.
+### Information Gain
+Google's Information Gain patent (US20200349181A1) scores a document on the **additional,
+non-redundant** information it adds relative to what the user has already seen.
 
-> **December 2025 Update**: E-E-A-T evaluation now extends to ALL competitive queries, not just YMYL topics. Every page competing for ranking is assessed on these signals.
+This is what separates two pages with equal credentials. A page restating the same
+definitions as the incumbent top 10 has near-zero information gain and no algorithmic
+reason to outrank it. It is also what generative engines quote, which makes originality
+the strongest shared requirement across classic ranking and AI citation.
+
+**Audit question for every page:** what does this contain that the current top 10 do not?
 
 ---
 
 ## Core Web Vitals
 
-Measured at the 75th percentile of real user data (field data).
+Measured at the 75th percentile of real-user (field) data.
 
 | Metric | Good | Needs Improvement | Poor |
 |--------|------|-------------------|------|
-| **LCP** (Largest Contentful Paint) | ≤ 2.5s | 2.5s – 4.0s | > 4.0s |
-| **INP** (Interaction to Next Paint) | ≤ 200ms | 200ms – 500ms | > 500ms |
-| **CLS** (Cumulative Layout Shift) | ≤ 0.1 | 0.1 – 0.25 | > 0.25 |
+| **LCP** | ≤ 2.5s | 2.5s – 4.0s | > 4.0s |
+| **INP** | ≤ 200ms | 200ms – 500ms | > 500ms |
+| **CLS** | ≤ 0.1 | 0.1 – 0.25 | > 0.25 |
 
 **Key facts:**
-- INP replaced FID (First Input Delay) on March 12, 2024. FID was fully removed from all Chrome tools (CrUX API, PageSpeed Insights, Lighthouse) on September 9, 2024. Do NOT reference FID.
-- Core Web Vitals are a confirmed ranking signal (since June 2021)
-- Field data (CrUX) is preferred over lab data (Lighthouse) for assessment
-- Passing all three metrics at "Good" is the target
-
-**Measurement tools:**
-- Google PageSpeed Insights (field + lab data)
-- Chrome User Experience Report (CrUX) — field data
-- Lighthouse (lab data only)
-- Google Search Console Core Web Vitals report
-
----
-
-## Structured Data Best Practices
-
-- **JSON-LD is Google's preferred format** (over Microdata and RDFa)
-- Place JSON-LD in `<script type="application/ld+json">` tags in the `<head>` or `<body>`
-- Always include `@context` and `@type` properties
-- **Required properties** must be present for rich result eligibility
-- **Recommended properties** improve rich result quality but aren't mandatory
-- Only mark up content that is visible on the page
-- Use Google's Rich Results Test to validate before deployment
-- Do not mark up content that is misleading or hidden from users
-- Keep schema current — update when page content changes
-
-### Deprecated/Restricted Types (as of Feb 2026)
-- **HowTo**: Rich results removed (September 2023)
-- **FAQ**: Restricted to government and healthcare authority sites (August 2023)
-- **SpecialAnnouncement**: Deprecated (July 31, 2025)
-- **CourseInfo, EstimatedSalary, LearningVideo**: Retired (June 2025)
-- **ClaimReview**: Retired (June 2025)
-- **VehicleListing**: Retired (June 2025)
+- INP replaced FID on 12 March 2024; FID was removed from all Chrome tooling on
+  9 September 2024. **Never reference FID.**
+- Core Web Vitals are used by ranking systems, but the effect is **lightweight** relative
+  to relevance and quality. The standalone "page experience" ranking system was retired,
+  and the Page Experience report was folded into individual CWV and HTTPS reports.
+  Do not present CWV as a primary ranking lever — fix them for users, and as a tiebreaker.
+- Field data (CrUX) beats lab data (Lighthouse) for assessment.
+- **Lighthouse and PageSpeed lab runs cannot produce INP.** INP is field-only; Total
+  Blocking Time (TBT) is the lab proxy. Never report a lab INP figure.
 
 ---
 
-## Common Penalties & How to Avoid Them
+## Structured Data
+
+- **JSON-LD preferred** over Microdata and RDFa
+- Always include `@context` and `@type`
+- Only mark up content **visible on the page**
+- Validate in the Rich Results Test before deploying
+- Keep markup in step with the page — stale dates, prices or authors are schema drift
+- Prefer a single connected `@graph` per page over isolated blocks
+  (see `seo/references/entity-schema-graph.md`)
+
+**Never** ship `aggregateRating` without visible reviews, or author markup naming someone
+who has left the organisation. Both are guideline and trust problems, not style choices.
+
+Type status (deprecated, restricted, current) lives in `seo/references/schema-types.md`.
+Do not duplicate that list here.
+
+---
+
+## Penalties and Recovery
 
 ### Manual Actions
-Google Search Console notifications for violations. Common causes:
-- **Unnatural links** (buying/selling links): Disavow bad links, request reconsideration
-- **Thin content**: Add substantial unique value to affected pages
-- **Cloaking/sneaky redirects**: Remove deceptive serving, request reconsideration
-- **User-generated spam**: Moderate comments/forums, add nofollow to user links
-- **Structured data issues**: Fix misleading or spam markup
+Reported in Search Console. Common causes: unnatural links, thin content, cloaking or
+sneaky redirects, user-generated spam, spammy structured data.
+
+**On disavow:** Google's guidance is that **most sites never need the disavow tool**.
+SpamBrain neutralises the overwhelming majority of link spam automatically. Use it only
+for (a) an active manual action for unnatural links, or (b) a documented negative-SEO
+event you cannot resolve at the source. Routine "hygiene" disavow files are net-negative
+and can strip legitimate signals. Do not recommend disavow as a default remedy.
 
 ### Algorithmic Demotions
-No manual notification — detected through ranking drops. Common causes:
-- **Helpful Content System**: Merged into Google's core ranking in March 2024 — no longer a standalone system. Helpfulness signals are now evaluated within every core update. Low-value, AI-generated, or unhelpful content at scale still triggers demotions via core updates.
-- **Core Updates**: Broad quality reassessment across all signals
-- **Spam Updates**: Automated detection of spam patterns
-- **Link Spam Updates**: Devaluation of manipulative link patterns
+No notification; detected via ranking timelines.
+- **Helpful Content System**: merged into core ranking in March 2024, no longer standalone.
+- **Core Updates**: broad quality reassessment.
+- **Spam / Link Spam Updates**: automated detection and devaluation.
 
-### Recovery Steps
-1. Identify the issue (Search Console, ranking timeline analysis)
-2. Fix the root cause (remove spam, improve content, clean links)
-3. For manual actions: submit reconsideration request via Search Console
-4. For algorithmic: improve quality, wait for next core update reassessment
-5. Monitor recovery in Search Console performance reports
+### Recovery
+1. Identify the issue (Search Console, ranking timeline)
+2. Fix the root cause
+3. Manual action → reconsideration request; algorithmic → improve and wait for reassessment
+4. Monitor Search Console performance **and** the generative AI reports, since a shift
+   between surfaces can look like a loss when it is not
 
 ---
 
@@ -137,15 +186,17 @@ No manual notification — detected through ranking drops. Common causes:
 
 - [Google Search Essentials](https://developers.google.com/search/docs/essentials)
 - [How Google Search Works](https://developers.google.com/search/docs/fundamentals/how-search-works)
+- [Spam Policies](https://developers.google.com/search/docs/essentials/spam-policies)
 - [Structured Data Overview](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data)
 - [Rich Results Test](https://search.google.com/test/rich-results)
-- [Core Web Vitals Report](https://support.google.com/webmasters/answer/9205520)
+- [Understanding Page Experience](https://developers.google.com/search/docs/appearance/page-experience)
 - [PageSpeed Insights](https://pagespeed.web.dev/)
-- [Search Console Help](https://support.google.com/webmasters)
-- [Manual Actions Report](https://support.google.com/webmasters/answer/9044175)
+- [Disavow links](https://support.google.com/webmasters/answer/2648487)
+- [Generative AI performance reports](https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports)
 - [Google Search Status Dashboard](https://status.search.google.com/)
 - [Google Search Central Blog](https://developers.google.com/search/blog)
-- [Spam Policies](https://developers.google.com/search/docs/essentials/spam-policies)
-- [E-E-A-T and Quality Rater Guidelines](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 
-> **Mobile-first indexing** is 100% complete as of July 5, 2024. Google now crawls and indexes ALL websites exclusively with the mobile Googlebot user-agent.
+> E-E-A-T is defined in Google's Search Quality Rater Guidelines, published separately as
+> a PDF and revised periodically. The rater guidelines describe how humans evaluate
+> quality; they are not a direct description of ranking systems. Treat them as intent, not
+> algorithm.

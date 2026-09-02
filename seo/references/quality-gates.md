@@ -1,4 +1,13 @@
+<!-- Updated: 2026-09-02 -->
 # Content Quality Gates
+
+> **How to read the word counts below.** Word count is **not** a ranking factor, and Google
+> has said so repeatedly. These figures are *thin-content diagnostics*, not targets: a page
+> materially below them usually fails to cover its topic, and a page padded to hit them is
+> worse, not better. Never recommend "add words". Recommend the missing substance.
+>
+> Originality matters more than length. A 400-word page with proprietary data outranks a
+> 1,500-word page that restates the top 10. See Information Gain in `eeat-framework.md`.
 
 ## Minimum Word Counts by Page Type
 
@@ -14,6 +23,22 @@
 | About Page | 400 | 100% | Company story, team, values |
 | Landing Page | 600 | 100% | Focused conversion content |
 | FAQ Page | 800 | 100% | Comprehensive Q&A |
+
+---
+
+## Uniqueness Scale (single source of truth)
+
+Every skill referencing "unique content %" uses this one scale. Uniqueness means genuinely
+different substance, not string-swapped city or keyword tokens.
+
+| Unique content | Verdict | Action |
+|----------------|---------|--------|
+| ≥ 60% | Acceptable at scale | Required for location pages past the warning gate |
+| 40–59% | Marginal | Warn; strengthen before adding more pages |
+| 30–39% | Thin | ❌ Flag as thin content, likely penalty risk |
+| < 30% | 🛑 **HARD STOP** | Scaled content abuse risk; require justification |
+
+Corollary: if more than 60% of a page is shared template boilerplate, it fails by definition.
 
 ---
 
@@ -70,7 +95,7 @@ Google's doorway page algorithm penalizes programmatic location pages with thin/
 
 | Aspect | Requirement |
 |--------|-------------|
-| Minimum length | 30 characters |
+| Practical target | 50-60 characters (matches `skills/seo-page`) |
 | Maximum length | 60 characters (Google truncates ~60) |
 | Primary keyword | Near the beginning |
 | Brand name | At end (if included) |
@@ -92,7 +117,7 @@ Google's doorway page algorithm penalizes programmatic location pages with thin/
 
 | Aspect | Requirement |
 |--------|-------------|
-| Minimum length | 120 characters |
+| Practical target | 150-160 characters (matches `skills/seo-page`) |
 | Maximum length | 160 characters (Google truncates ~155-160) |
 | Call-to-action | Include compelling CTA |
 | Primary keyword | Include naturally |
@@ -124,8 +149,11 @@ Google's doorway page algorithm penalizes programmatic location pages with thin/
 
 ## Internal Linking Guidelines
 
-| Page Type | Internal Links Target |
-|-----------|----------------------|
+**The rule is density, not a fixed count: 3–5 relevant internal links per 1,000 words.**
+The table below is that rule applied to typical page lengths, not a separate standard.
+
+| Page Type | Typical target |
+|-----------|----------------|
 | Blog post (1,500+ words) | 5-10 internal links |
 | Service page | 3-5 internal links |
 | Category page | Links to all child pages |
@@ -153,3 +181,44 @@ Google's doorway page algorithm penalizes programmatic location pages with thin/
 - Publication date visible (for articles/blogs)
 - Last updated date (if significantly revised)
 - Changelog for major updates (optional but good)
+
+---
+
+## AEO Gates (answer extraction)
+
+Applied to any page targeting a question or informational query.
+
+| Gate | Threshold | Severity if failed |
+|------|-----------|--------------------|
+| Canonical answer block present | 40–58 words, directly under a question-formatted H2/H3 | High |
+| Answer block is self-contained | No unresolved pronouns; parses standalone | High |
+| Answer placed before preamble | Answer opens the section | Medium |
+| Question-formatted headings | H2/H3 phrased as the real query | Medium |
+| Format matches intent | Comparisons as tables, processes as numbered lists | Medium |
+| Fact density | ≥1 verifiable statistic, named entity or cited source per 100 words | Medium |
+
+See `aeo-geo-benchmarks.md` for the evidence base and extraction mechanics.
+
+## Entity & E-E-A-T Gates
+
+| Gate | Requirement | Severity if failed |
+|------|-------------|--------------------|
+| Connected `@graph` | One graph per page, stable `@id` per node | Medium |
+| Author is an entity | `author` references a `Person` by `@id`, not a bare name string | High |
+| Credentials in markup | `hasCredential` / `knowsAbout` / `award` where genuine | Medium |
+| External verification | `sameAs` to Wikidata / official profiles where genuine | Medium |
+| Author currency | No markup naming departed staff | **Critical** |
+| Review integrity | No `aggregateRating` without visible reviews | **Critical** |
+| Schema drift | Structured claims match the rendered page | High |
+
+## AI Search Access Gates
+
+| Gate | Requirement | Severity if failed |
+|------|-------------|--------------------|
+| AI crawler access | GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot not blocked | **Critical** unless deliberate |
+| Search Console AI toggle | AI features blocking control OFF unless deliberate | **Critical** unless deliberate |
+| Server-side rendering | Primary content present in raw HTML response | High |
+| `llms.txt` | Present at domain root | Low |
+
+> **Reporting rule:** never state a CTR for AI surfaces. Search Console generative AI
+> reports provide impressions only, with no click data. Any AI-surface CTR would be fabricated.

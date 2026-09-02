@@ -1,6 +1,79 @@
 {
   "templates": [
     {
+      "type": "SiteEntityGraph",
+      "description": "Connected @graph tying Organization, WebSite, WebPage, Person and Article into one entity graph via stable @id references. Preferred over isolated schema blocks: it states relationships explicitly instead of leaving machines to infer them. One graph per page; @id values must never change once published. See seo/references/entity-schema-graph.md",
+      "template": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "[Site URL]#organization",
+            "name": "[Organization Name]",
+            "url": "[Site URL]",
+            "logo": "[Logo URL]",
+            "sameAs": [
+              "[LinkedIn URL]",
+              "[Wikidata QID URL]"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "[Site URL]#website",
+            "url": "[Site URL]",
+            "name": "[Site Name]",
+            "publisher": {
+              "@id": "[Site URL]#organization"
+            }
+          },
+          {
+            "@type": "Person",
+            "@id": "[Site URL]/about#person",
+            "name": "[Author Name]",
+            "jobTitle": "[Job Title]",
+            "worksFor": {
+              "@id": "[Site URL]#organization"
+            },
+            "knowsAbout": [
+              "[Topic 1]",
+              "[Topic 2]"
+            ],
+            "sameAs": [
+              "[LinkedIn URL]"
+            ]
+          },
+          {
+            "@type": "WebPage",
+            "@id": "[Page URL]#webpage",
+            "url": "[Page URL]",
+            "name": "[Page Title]",
+            "isPartOf": {
+              "@id": "[Site URL]#website"
+            },
+            "about": {
+              "@id": "[Site URL]#organization"
+            }
+          },
+          {
+            "@type": "Article",
+            "@id": "[Page URL]#article",
+            "headline": "[Article Headline]",
+            "author": {
+              "@id": "[Site URL]/about#person"
+            },
+            "publisher": {
+              "@id": "[Site URL]#organization"
+            },
+            "mainEntityOfPage": {
+              "@id": "[Page URL]#webpage"
+            },
+            "datePublished": "[YYYY-MM-DD]",
+            "dateModified": "[YYYY-MM-DD]"
+          }
+        ]
+      }
+    },
+    {
       "type": "VideoObject",
       "description": "Video content pages with thumbnails, duration, and playback URLs. Enables video rich results in Google Search.",
       "template": {
@@ -119,7 +192,10 @@
         "name": "[Product Name]",
         "description": "[Product group description]",
         "productGroupID": "[product-group-id]",
-        "variesBy": ["https://schema.org/size", "https://schema.org/color"],
+        "variesBy": [
+          "https://schema.org/size",
+          "https://schema.org/color"
+        ],
         "hasVariant": [
           {
             "@type": "Product",
@@ -139,18 +215,42 @@
     },
     {
       "type": "ProfilePage",
-      "description": "Author, creator, or team member profile pages. Enhances E-E-A-T signals with mainEntity Person markup and sameAs links.",
+      "description": "Author, creator, or team member profile pages. Carries machine-readable E-E-A-T: credentials, expertise, awards and external verification. Only assert properties that are genuinely true and visible on the page.",
       "template": {
         "@context": "https://schema.org",
         "@type": "ProfilePage",
+        "@id": "[Profile URL]#profilepage",
         "mainEntity": {
           "@type": "Person",
+          "@id": "[Profile URL]#person",
           "name": "[Author Name]",
           "url": "[Profile URL]",
+          "jobTitle": "[Job Title]",
           "description": "[Author bio and expertise summary]",
+          "image": "[Headshot URL]",
+          "worksFor": {
+            "@id": "[Site URL]#organization"
+          },
+          "knowsAbout": [
+            "[Topic 1]",
+            "[Topic 2]"
+          ],
+          "hasCredential": {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "certification",
+            "name": "[Credential Name]"
+          },
+          "alumniOf": {
+            "@type": "Organization",
+            "name": "[Institution]"
+          },
+          "award": [
+            "[Award Name and Year]"
+          ],
           "sameAs": [
-            "[Twitter URL]",
-            "[LinkedIn URL]"
+            "[LinkedIn URL]",
+            "[Wikidata QID URL]",
+            "[Publication author page]"
           ]
         }
       }

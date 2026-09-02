@@ -25,45 +25,72 @@ As of 2025-2026, AI companies actively crawl the web to train models and power A
 
 **Known AI crawlers:**
 
-| Crawler | Company | robots.txt token | Purpose |
-|---------|---------|-----------------|---------|
-| GPTBot | OpenAI | `GPTBot` | Model training |
-| ChatGPT-User | OpenAI | `ChatGPT-User` | Real-time browsing |
-| ClaudeBot | Anthropic | `ClaudeBot` | Model training |
-| PerplexityBot | Perplexity | `PerplexityBot` | Search index + training |
-| Bytespider | ByteDance | `Bytespider` | Model training |
-| Google-Extended | Google | `Google-Extended` | Gemini training (NOT search) |
-| CCBot | Common Crawl | `CCBot` | Open dataset |
+Separate **retrieval** agents (which decide whether an AI engine can cite you) from
+**training** agents (a licensing choice). Blocking a retrieval agent removes you from that
+engine's answers entirely.
+
+| Crawler | Company | Type | Purpose |
+|---------|---------|------|---------|
+| `OAI-SearchBot` | OpenAI | **Retrieval** | ChatGPT search results |
+| `ChatGPT-User` | OpenAI | **Retrieval** | User-initiated browsing |
+| `GPTBot` | OpenAI | Training + retrieval | OpenAI crawling |
+| `ClaudeBot` | Anthropic | **Retrieval** | Claude crawling |
+| `Claude-SearchBot` | Anthropic | **Retrieval** | Claude search retrieval |
+| `Claude-User` | Anthropic | **Retrieval** | User-initiated fetch |
+| `PerplexityBot` | Perplexity | **Retrieval** | Perplexity index |
+| `Google-Extended` | Google | Training | Gemini/Vertex training (NOT search or AI Overviews) |
+| `Applebot-Extended` | Apple | Training | Apple AI training |
+| `Bytespider` | ByteDance | Training | ByteDance AI |
+| `CCBot` | Common Crawl | Training | Open dataset |
 
 **Key distinctions:**
-- Blocking `Google-Extended` prevents Gemini training use but does NOT affect Google Search indexing or AI Overviews (those use `Googlebot`)
-- Blocking `GPTBot` prevents OpenAI training but does NOT prevent ChatGPT from citing your content via browsing (`ChatGPT-User`)
-- ~3-5% of websites now use AI-specific robots.txt rules
+- Google's AI Overviews and AI Mode use **`Googlebot`**, not `Google-Extended`. Blocking
+  `Google-Extended` affects Gemini training only, never AI Overview eligibility.
+- Blocking a retrieval agent (`OAI-SearchBot`, `Claude-SearchBot`, `PerplexityBot`) makes
+  you uncitable in that engine. This is the most common cause of accidental AI invisibility.
+- **Check the hosting layer too.** CDN and WAF bot rules block AI crawlers at the edge even
+  when robots.txt allows them, so robots.txt alone does not prove access. Verify with a
+  real request using the crawler's user-agent.
+- Also check the Search Console **AI features toggle**, which can exclude a site from AI
+  Overviews independently of robots.txt
+  (see `seo/references/search-console-ai-reports.md`).
 
-**Example — selective AI crawler blocking:**
+**Example — stay citable, opt out of training only:**
 ```
-# Allow search indexing, block AI training crawlers
-User-agent: GPTBot
-Disallow: /
+# Retrieval agents: allow, so AI engines can cite you
+User-agent: OAI-SearchBot
+Allow: /
 
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Training-only crawlers: a licensing decision, not a technical default
 User-agent: Google-Extended
 Disallow: /
 
-User-agent: Bytespider
+User-agent: Applebot-Extended
 Disallow: /
 
-# Allow all other crawlers (including Googlebot for search)
+User-agent: CCBot
+Disallow: /
+
 User-agent: *
 Allow: /
 ```
 
-**Recommendation:** Consider your AI visibility strategy before blocking. Being cited by AI systems drives brand awareness and referral traffic. Cross-reference the `seo-geo` skill for full AI visibility optimization.
+**Recommendation:** default to allowing retrieval agents. Treat training opt-outs as the
+client's commercial decision, and flag a blocked retrieval agent as **Critical** unless it
+was deliberate. Cross-reference the `seo-geo` skill for full AI visibility optimization.
 
 ### 2. Indexability
 - Canonical tags: self-referencing, no conflicts with noindex
 - Duplicate content: near-duplicates, parameter URLs, www vs non-www
 - Thin content: pages below minimum word counts per type
-- Pagination: rel=next/prev or load-more pattern
+- Pagination: self-referencing canonicals on each page, crawlable `<a href>` links between pages
+  (Google dropped `rel=next/prev` support in March 2019 — do not recommend it)
 - Hreflang: correct for multi-language/multi-region sites
 - Index bloat: unnecessary pages consuming crawl budget
 

@@ -1,4 +1,4 @@
-<!-- Updated: 2026-02-07 -->
+<!-- Updated: 2026-09-02 -->
 # MCP Integration
 
 ## Overview
@@ -118,11 +118,15 @@ def get_crux_data(url: str, api_key: str) -> dict:
 | Metric | Description |
 |--------|-------------|
 | LCP | Largest Contentful Paint (lab) |
-| INP | Interaction to Next Paint (estimated) |
 | CLS | Cumulative Layout Shift (lab) |
-| FCP | First Contentful Paint |
-| TBT | Total Blocking Time |
-| Speed Index | Visual progress speed |
+| FCP | First Contentful Paint (lab) |
+| TBT | Total Blocking Time (lab) — the proxy for INP |
+| Speed Index | Visual progress speed (lab) |
+
+> **INP is field-only.** Lighthouse and PageSpeed lab runs cannot produce an INP value,
+> because INP measures real user interactions. Use **TBT** as the lab proxy, and read real
+> INP from field data (CrUX, or the PageSpeed "Discover what your real users are
+> experiencing" section). Never report a lab INP figure.
 
 ### From CrUX (Field Data)
 

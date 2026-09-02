@@ -37,7 +37,8 @@ Claude SEO follows Anthropic's official Claude Code skill specification with a m
     ├── seo-schema.md         # Schema markup expert
     ├── seo-sitemap.md        # Sitemap architect
     ├── seo-performance.md    # Performance analyzer
-    └── seo-visual.md         # Visual analyzer
+    ├── seo-visual.md         # Visual analyzer
+    └── seo-geo.md            # AI search / GEO specialist
 ```
 
 ## Component Types
@@ -95,14 +96,14 @@ User Request
          │  Detects business type
          │  Spawns subagents in parallel
          │
-    ┌────┴────┬────────┬────────┬────────┬────────┐
-    ▼         ▼        ▼        ▼        ▼        ▼
-┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐
-│tech   │ │content│ │schema │ │sitemap│ │perf   │ │visual │
-│agent  │ │agent  │ │agent  │ │agent  │ │agent  │ │agent  │
-└───┬───┘ └───┬───┘ └───┬───┘ └───┬───┘ └───┬───┘ └───┬───┘
-    │         │        │        │        │        │
-    └─────────┴────────┴────┬───┴────────┴────────┘
+    ┌────┴────┬────────┬────────┬────────┬────────┬────────┐
+    ▼         ▼        ▼        ▼        ▼        ▼        ▼
+┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐
+│tech   │ │content│ │schema │ │sitemap│ │perf   │ │visual │ │geo    │
+│agent  │ │agent  │ │agent  │ │agent  │ │agent  │ │agent  │ │agent  │
+└───┬───┘ └───┬───┘ └───┬───┘ └───┬───┘ └───┬───┘ └───┬───┘ └───┬───┘
+    │         │        │        │        │        │        │
+    └─────────┴────────┴────┬───┴────────┴────────┴────────┘
                             │
                             ▼
                     ┌───────────────┐
@@ -138,7 +139,8 @@ User Request (e.g., /seo page)
 
 ### 1. Progressive Disclosure
 
-- Main SKILL.md is concise (<200 lines)
+- Main orchestrator SKILL.md is kept tightest (<200 lines); other SKILL.md files follow the
+  repo limit of 500 lines / 5000 tokens (see CLAUDE.md)
 - Reference files loaded on-demand
 - Detailed instructions in sub-skills
 

@@ -1,5 +1,5 @@
-<!-- Updated: 2026-02-07 -->
-# Schema.org Types — Status & Recommendations (February 2026)
+<!-- Updated: 2026-09-02 -->
+# Schema.org Types — Status & Recommendations
 
 **Schema.org Version:** 29.4 (December 8, 2025)
 
@@ -7,7 +7,15 @@
 Always use **JSON-LD** (`<script type="application/ld+json">`).
 Google's documentation explicitly recommends JSON-LD over Microdata and RDFa.
 
-**AI Search Note:** Content with proper schema has ~2.5× higher chance of appearing in AI-generated answers (confirmed by Google and Microsoft, March 2025).
+> **Structure matters as much as type.** This file covers *which types are valid*.
+> For *how to connect them* — a single `@graph`, stable `@id` URIs, `sameAs` to Wikidata,
+> machine-readable author credentials, and schema-drift checks — see
+> `entity-schema-graph.md`. Isolated schema blocks are valid and largely wasted.
+
+**AI Search Note:** Structured data materially helps machines extract and attribute claims,
+which supports inclusion in AI-generated answers. The often-quoted "2.5× higher chance"
+multiplier circulates without a traceable primary source — do not cite it as a Google or
+Microsoft finding. The mechanism (cheaper, unambiguous parsing) is the sound argument.
 
 ---
 
@@ -28,7 +36,7 @@ Google's documentation explicitly recommends JSON-LD over Microdata and RDFa.
 | Review | Individual reviews | reviewRating, author, itemReviewed, reviewBody |
 | AggregateRating | Rating summaries | ratingValue, reviewCount, bestRating, worstRating |
 | BreadcrumbList | Navigation | itemListElement with position, name, item |
-| WebSite | Site-level | name, url, potentialAction (SearchAction for sitelinks search) |
+| WebSite | Site-level | name, url, publisher (link to Organization by @id) |
 | WebPage | Page-level | name, description, datePublished, dateModified |
 | Person | Author/team | name, jobTitle, url, sameAs, image, worksFor |
 | ContactPage | Contact pages | name, url |
@@ -71,6 +79,7 @@ Google's documentation explicitly recommends JSON-LD over Microdata and RDFa.
 | Book Actions | Deprecated then REVERSED | June 2025 | **Still functional as of Feb 2026** — historical note only |
 | Practice Problem | Retired from rich results | Late 2025 | Educational practice problems no longer displayed |
 | Dataset | Retired from rich results | Late 2025 | Dataset Search feature discontinued |
+| Sitelinks SearchAction | Deprecated | November 2024 | Sitelinks search box removed. Do not add `potentialAction`/`SearchAction` to WebSite for this purpose. |
 
 ---
 
