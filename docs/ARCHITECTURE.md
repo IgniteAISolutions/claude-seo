@@ -139,7 +139,8 @@ User Request (e.g., /seo page)
 
 ### 1. Progressive Disclosure
 
-- Main SKILL.md is concise (<200 lines)
+- Main orchestrator SKILL.md is kept tightest (<200 lines); other SKILL.md files follow the
+  repo limit of 500 lines / 5000 tokens (see CLAUDE.md)
 - Reference files loaded on-demand
 - Detailed instructions in sub-skills
 

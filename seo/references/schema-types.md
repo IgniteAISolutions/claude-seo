@@ -1,5 +1,5 @@
-<!-- Updated: 2026-02-07 -->
-# Schema.org Types — Status & Recommendations (February 2026)
+<!-- Updated: 2026-09-02 -->
+# Schema.org Types — Status & Recommendations
 
 **Schema.org Version:** 29.4 (December 8, 2025)
 
@@ -12,7 +12,10 @@ Google's documentation explicitly recommends JSON-LD over Microdata and RDFa.
 > machine-readable author credentials, and schema-drift checks — see
 > `entity-schema-graph.md`. Isolated schema blocks are valid and largely wasted.
 
-**AI Search Note:** Content with proper schema has ~2.5× higher chance of appearing in AI-generated answers (confirmed by Google and Microsoft, March 2025).
+**AI Search Note:** Structured data materially helps machines extract and attribute claims,
+which supports inclusion in AI-generated answers. The often-quoted "2.5× higher chance"
+multiplier circulates without a traceable primary source — do not cite it as a Google or
+Microsoft finding. The mechanism (cheaper, unambiguous parsing) is the sound argument.
 
 ---
 

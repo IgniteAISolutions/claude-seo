@@ -41,6 +41,8 @@ claude-seo/
     seo-performance.md             # Core Web Vitals, page speed
     seo-visual.md                  # Screenshots, mobile rendering
     seo-geo.md                     # AI crawler access, GEO, citability
+  pdf/                               # Shared Google reference loaded by subagents
+  extensions/                        # Optional extensions (DataForSEO)
   docs/                              # Extended documentation
     ARCHITECTURE.md                # System design overview
     COMMANDS.md                    # Full command reference

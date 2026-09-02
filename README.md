@@ -1,4 +1,4 @@
-<!-- Updated: 2026-03-06 -->
+<!-- Updated: 2026-09-02 -->
 
 ![Claude SEO](screenshots/cover-image.jpeg)
 
@@ -156,6 +156,7 @@ Updated to September 2025 Quality Rater Guidelines:
 - Validation against Google's supported types
 - Generation with templates
 - Deprecation awareness:
+  - Full current list (11 deprecated/retired/restricted types): `seo/references/schema-types.md`
   - HowTo: Deprecated (Sept 2023)
   - FAQ: Restricted to gov/health sites (Aug 2023)
   - SpecialAnnouncement: Deprecated (July 2025)

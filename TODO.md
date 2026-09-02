@@ -70,4 +70,22 @@ Remaining phases (deferred):
 
 ---
 
-*Last updated: March 12, 2026*
+*Last updated: September 2, 2026*
+
+> Baseline note: the v1.5.0 currency pass (Sept 2026) closed the February 2026 research
+> backlog referenced above. Re-baseline research before treating any item here as current.
+
+## Not yet re-reviewed (as of the v1.5.0 currency pass, Sept 2026)
+
+These files still carry February 2026 content that was **not** verified in the currency
+pass. Their `Updated:` headers were deliberately left unchanged rather than bumped, so the
+staleness stays visible:
+
+- [ ] `skills/seo-plan/assets/generic.md`
+- [ ] `skills/seo-plan/assets/saas.md`
+- [ ] `skills/seo-plan/assets/agency.md`
+- [ ] `skills/seo-plan/assets/local-service.md`
+- [ ] `skills/seo-plan/assets/publisher.md`
+
+Each needs a pass for: generative-surface coverage, AI crawler guidance, answer-block
+structure, and any industry statistics that have gone stale.

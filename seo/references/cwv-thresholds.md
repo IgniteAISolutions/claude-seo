@@ -1,5 +1,5 @@
-<!-- Updated: 2026-02-07 -->
-# Core Web Vitals Thresholds (February 2026)
+<!-- Updated: 2026-09-02 -->
+# Core Web Vitals Thresholds
 
 ## Current Metrics
 
@@ -16,7 +16,8 @@
 - Core Web Vitals are a **tiebreaker** ranking signal — they matter most when content quality is similar between competitors.
 - **Thresholds unchanged since original definitions** — ignore claims of "tightened thresholds" from SEO blogs.
 - December 2025 core update appeared to weight **mobile CWV more heavily**.
-- As of October 2025: **57.1%** desktop sites and **49.7%** mobile sites pass all three CWV.
+- Roughly half of sites pass all three CWV, with mobile trailing desktop. Pull a current
+  figure from the CrUX public dataset if a deliverable needs one; the split moves each release.
 
 ## LCP Subparts (February 2025 CrUX Addition)
 
@@ -35,7 +36,8 @@ Use this breakdown to identify which phase is causing LCP issues.
 
 ## Soft Navigations API (Experimental)
 
-**Chrome 139+ Origin Trial (July 2025)** — First step toward measuring CWV in SPAs.
+**Soft Navigations API** — measures CWV across SPA route changes. Status has moved through
+several Chrome milestones; verify current availability before relying on it.
 
 - Addresses the long-standing SPA measurement blind spot
 - Currently experimental, **no ranking impact yet**
@@ -98,11 +100,13 @@ curl "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=URL&key=API
 npx lighthouse URL --output json --output-path report.json
 ```
 
-## Performance Tooling Updates (2025)
+## Performance Tooling Notes
 
 - **Lighthouse 13.0** (October 2025): Major audit restructuring with reorganized performance categories and updated scoring weights. Lighthouse is a lab tool (simulated conditions) — always cross-reference with CrUX field data for real-world performance.
 - **CrUX Vis** replaced the CrUX Dashboard (November 2025). The old Looker Studio dashboard was deprecated. Use [CrUX Vis](https://cruxvis.withgoogle.com) or the CrUX API directly.
 - **LCP subparts** added to CrUX (February 2025): Time to First Byte (TTFB), resource load delay, resource load time, and element render delay are now available as sub-components of LCP in CrUX data.
-- **Google Search Console 2025 features** (December 2025): AI-powered configuration for automated analysis. Branded vs. non-branded queries filter. Hourly data available in API. Custom chart annotations. Social channels tracking.
+- **Search Console**: branded vs non-branded query filters, hourly API data, chart
+  annotations. For AI-surface reporting see `search-console-ai-reports.md` — the generative
+  AI performance reports (June 2026) superseded the earlier feature set described here.
 
 > **Mobile-first indexing** is 100% complete as of July 5, 2024. Google now crawls and indexes ALL websites exclusively with the mobile Googlebot user-agent. Ensure your mobile version contains all critical content, structured data, and meta tags.
