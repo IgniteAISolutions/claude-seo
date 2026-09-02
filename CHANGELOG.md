@@ -44,6 +44,10 @@ three functional bugs in the schema hook and one broken plugin manifest.
   did not exist; it now exists and the instruction is accurate.
 
 ### Added
+- **CI (`.github/workflows/tests.yml`)**: the repo had no CI at all. Runs the test suite
+  on Python 3.10 and 3.12, checks every shipped JSON file parses, compiles all Python,
+  and asserts the plugin manifest lists every agent present on disk. That last guard is
+  verified to catch the exact `seo-geo` omission fixed in this release.
 - **Test suite (`tests/test_validate_schema.py`)**: 32 regression tests for the schema
   hook, one group per v1.5.0 bug fix, plus a test asserting the shipped
   `SiteEntityGraph` template validates clean through our own hook. Verified by
