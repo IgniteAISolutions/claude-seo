@@ -75,17 +75,17 @@ Remaining phases (deferred):
 > Baseline note: the v1.5.0 currency pass (Sept 2026) closed the February 2026 research
 > backlog referenced above. Re-baseline research before treating any item here as current.
 
-## Not yet re-reviewed (as of the v1.5.0 currency pass, Sept 2026)
+## Coverage status (v1.5.0 currency pass, Sept 2026)
 
-These files still carry February 2026 content that was **not** verified in the currency
-pass. Their `Updated:` headers were deliberately left unchanged rather than bumped, so the
-staleness stays visible:
+All `skills/seo-plan/assets/*.md` have now been reviewed and carry the shared
+**Modern Search Readiness** section (AI crawler access, answer-first structure, fact
+density, entity graph, information gain, AI-surface measurement) plus an industry-specific
+note. Date headers were bumped only after actual review.
 
-- [ ] `skills/seo-plan/assets/generic.md`
-- [ ] `skills/seo-plan/assets/saas.md`
-- [ ] `skills/seo-plan/assets/agency.md`
-- [ ] `skills/seo-plan/assets/local-service.md`
-- [ ] `skills/seo-plan/assets/publisher.md`
-
-Each needs a pass for: generative-surface coverage, AI crawler guidance, answer-block
-structure, and any industry statistics that have gone stale.
+Remaining known work:
+- [ ] CHANGELOG.md historical entries contain internal inconsistencies (the v1.4.0 note
+      says installers pin `v1.3.0` while they pin `v1.4.0`; dependency minimums quoted
+      there have since moved in `requirements.txt`). Left unedited on purpose: a changelog
+      is a historical record, not a document to retrofit.
+- [ ] No automated test suite. Hook behaviour is currently verified by hand against
+      fixtures; worth formalising as pytest cases.

@@ -1,4 +1,4 @@
-<!-- Updated: 2026-02-07 -->
+<!-- Updated: 2026-09-02 -->
 # SaaS SEO Strategy Template
 
 ## Industry Characteristics
@@ -133,3 +133,38 @@ Comparison pages are among the highest-converting content types for SaaS, with c
 - [ ] Ensure integration pages have clear, quotable descriptions
 - [ ] Structure pricing information in tables AI can extract
 - [ ] Monitor AI citation across Google AI Overviews, ChatGPT, and Perplexity
+
+---
+
+## Modern Search Readiness
+
+Applies to every plan in this file. Rank and AI citation are separate outcomes: a page can
+rank well and never be cited. Cover both.
+
+**1. Stay citable.** Confirm retrieval crawlers are not blocked in robots.txt **or at the
+CDN/WAF edge**: `OAI-SearchBot`, `ClaudeBot`, `Claude-SearchBot`, `PerplexityBot`, `GPTBot`.
+Also check the Search Console AI features toggle. A blocked retrieval agent is Critical.
+
+**2. Answer-first structure.** Every page targeting a question opens that section with a
+**40-58 word self-contained answer** under a question-formatted H2/H3, before any preamble.
+Comparisons become tables; processes become numbered lists.
+
+**3. Fact density.** At least one verifiable statistic, named entity or cited source per
+100 words. Evidence is what generative engines quote.
+
+**4. Entity graph.** One connected `@graph` per page with stable `@id` values, authors as
+`Person` nodes (never bare name strings), and `sameAs` to genuine external profiles.
+
+**5. Information gain.** For each planned page ask: what does this contain that the current
+top 10 do not? If there is no answer, the page has an originality problem, not a keyword one.
+
+**6. Measure it.** Baseline AI visibility from the Search Console generative AI reports.
+They carry impressions only, with **no click data**, so never report an AI-surface CTR.
+
+References: `seo/references/aeo-geo-benchmarks.md`,
+`seo/references/entity-schema-graph.md`, `seo/references/search-console-ai-reports.md`.
+
+**SaaS note:** comparison and alternatives pages are heavily surfaced in AI answers, so
+build them as genuine feature tables with sourced claims rather than marketing prose.
+Docs and help-centre content are strong citation targets; keep them crawlable and never
+place them behind JS-only rendering or a login wall.
