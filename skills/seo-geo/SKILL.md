@@ -12,20 +12,27 @@ description: >
 
 # AI Search / GEO Optimization (February 2026)
 
-## Key Statistics
+## Why GEO matters
 
-| Metric | Value | Source |
-|--------|-------|--------|
-| AI Overviews reach | 1.5 billion users/month across 200+ countries | Google |
-| AI Overviews query coverage | 50%+ of all queries | Industry data |
-| AI-referred sessions growth | 527% (Jan-May 2025) | SparkToro |
-| ChatGPT weekly active users | 900 million | OpenAI |
-| Perplexity monthly queries | 500+ million | Perplexity |
+AI surfaces are now a primary discovery route: AI Overviews and AI Mode appear across a
+large and growing share of queries, and ChatGPT, Perplexity and Claude all resolve
+questions that previously produced a click. The direction is not in dispute.
+
+**Do not quote usage or market-share figures from this file.** Adoption numbers move
+monthly, are reported inconsistently, and go stale faster than this repo updates. If a
+client deliverable needs a figure, pull it from the provider's own current disclosure and
+date it. For your own measurement, use first-party Search Console data
+(`references/search-console-ai-reports.md`), which is the only AI-visibility number you can
+actually stand behind for a given site.
 
 ## Critical Insight: Brand Mentions > Backlinks
 
-**Brand mentions correlate 3× more strongly with AI visibility than backlinks.**
-(Ahrefs December 2025 study of 75,000 brands)
+Brand mentions across third-party platforms correlate more strongly with AI visibility than
+backlink metrics do (Ahrefs, December 2025, 75,000 brands).
+
+> Vendor correlation study, not peer-reviewed, and correlation is not causation. Attribute
+> it if you cite it. The actionable point stands on its own: being *talked about* on
+> platforms AI engines draw from matters, and a backlink-only strategy misses it.
 
 | Signal | Correlation with AI Citations |
 |--------|------------------------------|

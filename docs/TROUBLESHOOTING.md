@@ -156,7 +156,7 @@ cp /path/to/claude-seo/agents/*.md ~/.claude/agents/
 
 1. Ensure placeholders are replaced
 2. Verify @context is `https://schema.org`
-3. Check for deprecated types (HowTo, SpecialAnnouncement)
+3. Check for deprecated/retired types — full current list in `seo/references/schema-types.md`
 4. Validate at [Google's Rich Results Test](https://search.google.com/test/rich-results)
 
 ---

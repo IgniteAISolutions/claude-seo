@@ -146,7 +146,7 @@ Image optimization analysis.
 
 **What it checks:**
 - Alt text presence and quality
-- File sizes (flag >200KB)
+- File sizes (tiered by role: thumbnail / content / hero)
 - Formats (WebP/AVIF recommendations)
 - Responsive images (srcset, sizes)
 - Lazy loading
