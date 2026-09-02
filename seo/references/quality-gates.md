@@ -26,6 +26,22 @@
 
 ---
 
+## Uniqueness Scale (single source of truth)
+
+Every skill referencing "unique content %" uses this one scale. Uniqueness means genuinely
+different substance, not string-swapped city or keyword tokens.
+
+| Unique content | Verdict | Action |
+|----------------|---------|--------|
+| ≥ 60% | Acceptable at scale | Required for location pages past the warning gate |
+| 40–59% | Marginal | Warn; strengthen before adding more pages |
+| 30–39% | Thin | ❌ Flag as thin content, likely penalty risk |
+| < 30% | 🛑 **HARD STOP** | Scaled content abuse risk; require justification |
+
+Corollary: if more than 60% of a page is shared template boilerplate, it fails by definition.
+
+---
+
 ## Location Page Thresholds
 
 ### Warning Level (30+ pages)
@@ -133,8 +149,11 @@ Google's doorway page algorithm penalizes programmatic location pages with thin/
 
 ## Internal Linking Guidelines
 
-| Page Type | Internal Links Target |
-|-----------|----------------------|
+**The rule is density, not a fixed count: 3–5 relevant internal links per 1,000 words.**
+The table below is that rule applied to typical page lengths, not a separate standard.
+
+| Page Type | Typical target |
+|-----------|----------------|
 | Blog post (1,500+ words) | 5-10 internal links |
 | Service page | 3-5 internal links |
 | Category page | Links to all child pages |

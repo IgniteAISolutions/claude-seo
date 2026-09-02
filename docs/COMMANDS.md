@@ -116,11 +116,22 @@ AI Overviews / Generative Engine Optimization.
 ```
 
 **What it analyzes:**
-- Citability score (quotable facts, statistics)
-- Structural readability (headings, lists, tables)
-- Entity clarity (definitions, context)
-- Authority signals (credentials, sources)
-- Structured data support
+- **AI crawler access** — retrieval agents (OAI-SearchBot, ClaudeBot, Claude-SearchBot,
+  PerplexityBot, GPTBot) vs training-only agents, plus CDN/WAF edge blocking
+- **Search Console AI features toggle** — whether the site has opted out of AI Overviews
+- **Answer-block structure (AEO)** — 40–58 word canonical answers under question headings,
+  self-contained and front-loaded
+- **Passage citability** — quotable, fact-dense supporting passages
+- **Fact density** — verifiable statistics, named entities and cited sources per 100 words
+- **Structural readability** — heading hierarchy, lists, comparison tables
+- **Entity and authority signals** — author credentials, `sameAs`, connected `@graph`
+- **llms.txt** presence and configuration
+- **Server-side rendering** — is primary content in the raw HTML response
+- **Brand mention signals** across third-party platforms
+- **Platform-specific scoring** — Google AI Overviews, AI Mode, ChatGPT, Perplexity, Claude
+
+References: `seo/references/aeo-geo-benchmarks.md`,
+`seo/references/search-console-ai-reports.md`.
 
 ---
 

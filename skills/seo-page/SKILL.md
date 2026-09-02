@@ -37,11 +37,16 @@ description: >
 - Detect all types (JSON-LD preferred)
 - Validate required properties
 - Identify missing opportunities
-- NEVER recommend HowTo (deprecated) or FAQ (restricted to gov/health)
+- HowTo and FAQPage: never recommend **adding** them for Google rich results (HowTo removed
+  Sept 2023; FAQ restricted to government/healthcare Aug 2023). Existing markup on a
+  commercial site → flag **Info**, not Critical: it still aids AI/LLM citation. Full posture
+  in `seo/references/schema-types.md`.
 
 ### Images
 - Alt text: present, descriptive, includes keywords where natural
-- File size: flag >200KB (warning), >500KB (critical)
+- File size: thresholds vary by image role (thumbnail, content, hero). Use the tiered table
+  in `skills/seo-images/SKILL.md`, which is the source of truth — a 250KB hero is fine, a
+  250KB thumbnail is not.
 - Format: recommend WebP/AVIF over JPEG/PNG
 - Dimensions: width/height set for CLS prevention
 - Lazy loading: loading="lazy" on below-fold images

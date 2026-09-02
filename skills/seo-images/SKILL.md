@@ -159,7 +159,7 @@ Add `decoding="async"` to non-LCP images to prevent image decoding from blocking
 |--------|--------|-------|
 | Total Images | - | XX |
 | Missing Alt Text | ❌ | XX |
-| Oversized (>200KB) | ⚠️ | XX |
+| Oversized (per role tier, see Size Thresholds) | ⚠️ | XX |
 | Wrong Format | ⚠️ | XX |
 | No Dimensions | ⚠️ | XX |
 | Not Lazy Loaded | ⚠️ | XX |
