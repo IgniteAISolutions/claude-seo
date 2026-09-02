@@ -40,9 +40,15 @@ three functional bugs in the schema hook and one broken plugin manifest.
 - **Install docs re-introduced a removed security risk**: `INSTALLATION.md` still documented
   the `irm | iex` one-liner that v1.4.0 removed, and cloned from `main` rather than a tag.
 - Count inconsistencies across README/CLAUDE.md/ARCHITECTURE.md (6 vs 7 agents, 8 vs 9
-  technical categories, 12 vs 13 sub-skills); removed reference to a non-existent `tests/`.
+  technical categories, 12 vs 13 sub-skills). CLAUDE.md pointed at a `tests/` directory that
+  did not exist; it now exists and the instruction is accurate.
 
 ### Added
+- **Test suite (`tests/test_validate_schema.py`)**: 32 regression tests for the schema
+  hook, one group per v1.5.0 bug fix, plus a test asserting the shipped
+  `SiteEntityGraph` template validates clean through our own hook. Verified by
+  mutation testing: reverting each of the three fixes fails the suite.
+  Run with `python3 -m pytest tests/ -q`.
 - **`references/search-console-ai-reports.md`**: Search Console generative AI performance
   reports (launched 3 Jun 2026, global 31 Aug 2026) and the AI features blocking toggle.
   Includes the hard rule that these reports carry **no click data**, so any AI-surface CTR

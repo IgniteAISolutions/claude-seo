@@ -76,8 +76,9 @@ claude-seo/
 - Follow kebab-case naming for all skill directories
 - Agents invoked via Task tool with `context: fork`, never via Bash
 - Python dependencies install into `~/.claude/skills/seo/.venv/`
-- No test suite yet; validate changes by running the hooks and scripts directly
-  (e.g. `python3 hooks/validate-schema.py <file>`)
+- Run `python3 -m pytest tests/ -q` after changes (32 regression tests covering the
+  schema hook, including the three v1.5.0 bug fixes and the shipped @graph template)
+- Scripts can also be exercised directly (e.g. `python3 hooks/validate-schema.py <file>`)
 
 ## Key Principles
 
