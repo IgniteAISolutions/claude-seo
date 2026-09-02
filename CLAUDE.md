@@ -4,7 +4,7 @@
 
 This repository contains **Claude SEO**, a Tier 4 Claude Code skill for comprehensive
 SEO analysis across all industries. It follows the Agent Skills open standard and the
-3-layer architecture (directive, orchestration, execution). 13 sub-skills, 7 parallel
+3-layer architecture (directive, orchestration, execution). 12 sub-skills (+1 extension), 7 parallel
 subagents, and an extensible reference system cover technical SEO, content quality,
 schema markup, image optimization, sitemap architecture, and AI search optimization.
 
@@ -74,7 +74,8 @@ claude-seo/
 - Follow kebab-case naming for all skill directories
 - Agents invoked via Task tool with `context: fork`, never via Bash
 - Python dependencies install into `~/.claude/skills/seo/.venv/`
-- Test with `python -m pytest tests/` after changes (if applicable)
+- No test suite yet; validate changes by running the hooks and scripts directly
+  (e.g. `python3 hooks/validate-schema.py <file>`)
 
 ## Key Principles
 

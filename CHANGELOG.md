@@ -5,6 +5,71 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-09-02
+
+Currency pass. The knowledge layer was frozen at February 2026 and had drifted ~7 months
+out of date, missing the year's largest Search Console change. This release also fixes
+three functional bugs in the schema hook and one broken plugin manifest.
+
+### Fixed
+- **`plugin.json` shipped a broken audit**: `agents/seo-geo.md` was missing from the agents
+  array, so plugin-directory installs ran 6 of 7 subagents while still scoring "AI Search
+  Readiness". Version also corrected (1.3.2 → 1.5.0).
+- **Schema hook silently validated nothing on modern frameworks**: the JSON-LD `<script>`
+  regex required `type` to be the only attribute, so Next.js/Astro output
+  (`<script type="application/ld+json" id="...">`) was skipped and the hook exited clean.
+- **Schema hook blocked legitimate edits**: `"REPLACE"` was substring-matched
+  case-insensitively, so any schema containing "replacement" or "replaces" (e.g. a window
+  replacement business) triggered a blocking placeholder error. Bare tokens now match
+  case-sensitively on word boundaries.
+- **Schema hook rejected connected entity graphs**: documents using `@graph` have no
+  top-level `@type` and were flagged "Missing @type". `@graph` is now traversed per node,
+  and `@context` accepts string, array and object forms plus trailing slashes.
+- **HowTo downgraded from blocking to warning**: no Google rich result since Sept 2023, but
+  still parsed by LLMs for step extraction. Mirrors the existing FAQPage posture.
+- **`rel=next/prev` recommended in 4 files**: Google dropped support in March 2019. Replaced
+  with self-referencing canonicals and crawlable links.
+- **TTFB threshold corrected** 200ms → 800ms (Google's documented figure) in
+  `cwv-thresholds.md` and `agents/seo-performance.md`.
+- **Sitelinks `SearchAction`** moved out of "recommend freely" — the sitelinks search box was
+  removed in November 2024.
+- **Audit scoring weights reconciled**: `seo-audit/SKILL.md` disagreed with the orchestrator
+  (AI Search Readiness 5% vs 10%). Orchestrator is now declared authoritative.
+- **`seo-geo` added to audit delegation**: `/seo audit` scored AI Search Readiness without
+  ever running the GEO agent.
+- **Install docs re-introduced a removed security risk**: `INSTALLATION.md` still documented
+  the `irm | iex` one-liner that v1.4.0 removed, and cloned from `main` rather than a tag.
+- Count inconsistencies across README/CLAUDE.md/ARCHITECTURE.md (6 vs 7 agents, 8 vs 9
+  technical categories, 12 vs 13 sub-skills); removed reference to a non-existent `tests/`.
+
+### Added
+- **`references/search-console-ai-reports.md`**: Search Console generative AI performance
+  reports (launched 3 Jun 2026, global 31 Aug 2026) and the AI features blocking toggle.
+  Includes the hard rule that these reports carry **no click data**, so any AI-surface CTR
+  is fabricated.
+- **`references/aeo-geo-benchmarks.md`**: the three retrieval layers (SEO/AEO/GEO), the
+  Princeton GEO benchmark (Aggarwal et al., ACM SIGKDD 2024, arXiv:2311.09735) with verified
+  figures, cross-encoder passage-extraction mechanics, the 40–58 word canonical answer block,
+  fact-density targets, citation decay, and Information Gain.
+- **`references/entity-schema-graph.md`**: connected `@graph` architecture, stable `@id` URIs,
+  `sameAs` to Wikidata, machine-readable E-E-A-T on the `Person` node, and schema drift.
+- **AEO, entity and AI-access quality gates** in `quality-gates.md` — previously the gates
+  were entirely word-count/title/meta/alt-text.
+- **Machine-readable E-E-A-T and Information Gain** sections in `eeat-framework.md`, which
+  previously gave improvement advice with no structured-data implementation.
+- **Three-layer retrieval model** in `seo/SKILL.md`, plus new hard rules: blocked AI crawlers,
+  `aggregateRating` without visible reviews, and author markup naming departed staff.
+
+### Changed
+- Word-count gates reframed as thin-content diagnostics rather than targets, resolving a
+  direct contradiction with `seo-content/SKILL.md` ("word count is NOT a ranking factor").
+- GEO passage guidance reconciled: the 134–167 word figure conflicted with the 40–60 word
+  answer-first rule. Now defined as two complementary structures.
+- Unsourced and unreproducible statistics either attributed, caveated, or removed
+  (platform citation shares, "92% of AI Overview citations", core-update traffic drops).
+- "AI crawlers do NOT execute JavaScript" softened — rendering support varies by crawler.
+- Platform table now includes Google AI Mode and Claude.
+
 ## [1.4.0] - 2026-03-12
 
 ### Security

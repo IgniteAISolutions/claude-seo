@@ -111,7 +111,7 @@
 ## Technical Considerations
 
 ### Pagination
-- Use rel="next"/rel="prev" or load-more
+- Self-referencing canonical per page plus crawlable links (rel=next/prev unsupported since 2019)
 - Ensure all products are crawlable
 - Canonical to main category page
 

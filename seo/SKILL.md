@@ -63,16 +63,39 @@ Read `references/quality-gates.md` for thin content thresholds per page type.
 Hard rules:
 - ⚠️ WARNING at 30+ location pages (enforce 60%+ unique content)
 - 🛑 HARD STOP at 50+ location pages (require user justification)
-- Never recommend HowTo schema (deprecated Sept 2023)
+- Never recommend HowTo schema for Google rich results (removed Sept 2023); existing HowTo → warn only, it still aids LLM step extraction
 - FAQ schema for Google rich results: only government and healthcare sites (Aug 2023 restriction); existing FAQPage on commercial sites → flag Info priority (not Critical), noting AI/LLM citation benefit; adding new FAQPage → not recommended for Google benefit
+- Never recommend `rel=next/prev` (unsupported since March 2019)
+- Never recommend sitelinks `SearchAction` (removed Nov 2024)
 - All Core Web Vitals references use INP, never FID
+- 🛑 Blocking an AI search crawler (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot) → Critical unless the client has deliberately opted out
+- 🛑 `aggregateRating` markup with no visible reviews on the page → Critical (guideline breach)
+- 🛑 Author markup naming someone no longer at the organisation → Critical (schema drift)
+- Never report a CTR for AI surfaces — Search Console generative AI reports contain no click data
+
+## The Three Retrieval Layers
+
+Visibility is won across three systems with different selection logic. Optimizing one
+does not deliver the others — a page can rank top-3 organically and never be cited in
+an AI Overview.
+
+| Layer | Mechanism | Target output |
+|-------|-----------|---------------|
+| **SEO** | Crawlers + inverted index; link topology | Classic organic results |
+| **AEO** | Neural passage segmentation, cross-encoder re-ranking | Featured snippets, answer boxes |
+| **GEO** | Dense vector retrieval, multi-source RAG | AI Overviews, ChatGPT, Perplexity, Claude |
+
+Audits must report all three separately. See `references/aeo-geo-benchmarks.md`.
 
 ## Reference Files
 
 Load these on-demand as needed — do NOT load all at startup:
 - `references/cwv-thresholds.md` — Current Core Web Vitals thresholds and measurement details
 - `references/schema-types.md` — All supported schema types with deprecation status
+- `references/entity-schema-graph.md` — Connected @graph architecture, sameAs/Wikidata, machine-readable E-E-A-T, schema drift
 - `references/eeat-framework.md` — E-E-A-T evaluation criteria (Sept 2025 QRG update)
+- `references/aeo-geo-benchmarks.md` — Princeton GEO benchmarks, passage extraction mechanics, Information Gain
+- `references/search-console-ai-reports.md` — Generative AI performance reports (June 2026) and AI blocking control
 - `references/quality-gates.md` — Content length minimums, uniqueness thresholds
 
 ## Scoring Methodology
@@ -102,7 +125,7 @@ This skill orchestrates 12 specialized sub-skills (+ 1 extension):
 
 1. **seo-audit** — Full website audit with parallel delegation
 2. **seo-page** — Deep single-page analysis
-3. **seo-technical** — Technical SEO (8 categories)
+3. **seo-technical** — Technical SEO (9 categories)
 4. **seo-content** — E-E-A-T and content quality
 5. **seo-schema** — Schema markup detection and generation
 6. **seo-images** — Image optimization

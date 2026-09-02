@@ -63,7 +63,7 @@ Use this breakdown to identify which phase is causing LCP issues.
 ### LCP (Largest Contentful Paint)
 - Unoptimized hero images (compress, use WebP/AVIF, add preload)
 - Render-blocking CSS/JS (defer, async, critical CSS inlining)
-- Slow server response (TTFB >200ms — use edge CDN, caching)
+- Slow server response (TTFB >800ms — use edge CDN, caching)
 - Third-party script blocking (defer analytics, chat widgets)
 - Web font loading delay (use font-display: swap + preload)
 

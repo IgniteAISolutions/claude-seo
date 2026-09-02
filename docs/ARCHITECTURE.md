@@ -37,7 +37,8 @@ Claude SEO follows Anthropic's official Claude Code skill specification with a m
     ├── seo-schema.md         # Schema markup expert
     ├── seo-sitemap.md        # Sitemap architect
     ├── seo-performance.md    # Performance analyzer
-    └── seo-visual.md         # Visual analyzer
+    ├── seo-visual.md         # Visual analyzer
+    └── seo-geo.md            # AI search / GEO specialist
 ```
 
 ## Component Types

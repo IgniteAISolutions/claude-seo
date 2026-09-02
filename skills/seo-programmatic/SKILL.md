@@ -113,7 +113,8 @@ Measure against all other pages in the programmatic set. Shared headers, footers
 
 - Every programmatic page must have a self-referencing canonical tag
 - Parameter variations (sort, filter, pagination) canonical to the base URL
-- Paginated series: canonical to page 1 or use rel=next/prev
+- Paginated series: self-referencing canonical per page (never canonical every page to page 1,
+  which hides deeper items; rel=next/prev has been unsupported since March 2019)
 - If programmatic pages overlap with manual pages, the manual page is canonical
 - No canonical to a different domain unless intentional cross-domain setup
 
@@ -130,7 +131,7 @@ Measure against all other pages in the programmatic set. Shared headers, footers
 ## Index Bloat Prevention
 
 - **Noindex low-value pages**: Pages that don't meet quality gates
-- **Pagination**: Noindex paginated results beyond page 1 (or use rel=next/prev)
+- **Pagination**: Keep pages indexable with self-referencing canonicals and crawlable links
 - **Faceted navigation**: Noindex filtered views, canonical to base category
 - **Crawl budget**: For sites with >10k programmatic pages, monitor crawl stats in Search Console
 - **Thin page consolidation**: Merge records with insufficient data into aggregated pages

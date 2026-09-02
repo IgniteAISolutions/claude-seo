@@ -63,7 +63,8 @@ Allow: /
 - Canonical tags: self-referencing, no conflicts with noindex
 - Duplicate content: near-duplicates, parameter URLs, www vs non-www
 - Thin content: pages below minimum word counts per type
-- Pagination: rel=next/prev or load-more pattern
+- Pagination: self-referencing canonicals on each page, crawlable `<a href>` links between pages
+  (Google dropped `rel=next/prev` support in March 2019 — do not recommend it)
 - Hreflang: correct for multi-language/multi-region sites
 - Index bloat: unnecessary pages consuming crawl budget
 

@@ -9,26 +9,37 @@
 Optional:
 - **Playwright** for screenshot capabilities
 
-## Quick Install
+## Recommended Install (clone, review, then run)
 
-### Unix/macOS/Linux
+Piping a remote script straight into a shell executes code you have not read. Clone a
+pinned tag, review the installer, then run it.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh | bash
+git clone --depth 1 --branch v1.5.0 https://github.com/AgriciDaniel/claude-seo.git
+cd claude-seo
+less install.sh   # review before running
+./install.sh
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-irm https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.ps1 | iex
+git clone --depth 1 --branch v1.5.0 https://github.com/AgriciDaniel/claude-seo.git
+cd claude-seo
+Get-Content .\install.ps1   # review before running
+.\install.ps1
 ```
+
+> **Do not use `curl … | bash` or `irm … | iex`.** Those patterns were removed in v1.4.0
+> as a supply-chain risk. Always pin a release tag rather than tracking `main`, so an
+> upstream change cannot alter your install silently.
 
 ## Manual Installation
 
-1. **Clone the repository**
+1. **Clone the repository at a pinned tag**
 
 ```bash
-git clone https://github.com/AgriciDaniel/claude-seo.git
+git clone --depth 1 --branch v1.5.0 https://github.com/AgriciDaniel/claude-seo.git
 cd claude-seo
 ```
 
