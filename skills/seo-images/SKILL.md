@@ -40,13 +40,18 @@ description: >
 Recommend compression to target thresholds where possible without quality loss.
 
 ### Format
-| Format | Browser Support | Use Case |
-|--------|-----------------|----------|
-| WebP | 97%+ | Default recommendation |
-| AVIF | 92%+ | Best compression, newer |
-| JPEG | 100% | Fallback for photos |
-| PNG | 100% | Graphics with transparency |
-| SVG | 100% | Icons, logos, illustrations |
+| Format | Support | Use Case |
+|--------|---------|----------|
+| WebP | Universal in current browsers | Default recommendation |
+| AVIF | Universal in current browsers; best compression | Serve first in `<picture>` |
+| JPEG | Universal | Fallback for photos |
+| PNG | Universal | Graphics with transparency |
+| SVG | Universal | Icons, logos, illustrations |
+
+> Exact support percentages drift and go stale quickly. Both WebP and AVIF are supported
+> across all current major browsers, so the practical rule is to serve AVIF first, WebP
+> second, and a JPEG/PNG fallback via `<picture>`. Check caniuse.com if a client needs a
+> figure for a specific legacy browser policy.
 
 Recommend WebP/AVIF over JPEG/PNG. Check for `<picture>` element with format fallbacks.
 
@@ -62,11 +67,18 @@ Use progressive enhancement with the most efficient format first:
 </picture>
 ```
 
-The browser will use the first supported format. Current browser support: AVIF 93.8%, WebP 95.3%.
+The browser uses the first format it supports, so order matters: AVIF, then WebP, then the
+`<img>` fallback.
 
 #### JPEG XL — Emerging Format
 
-In November 2025, Google's Chromium team reversed its 2022 decision and announced it will restore JPEG XL support in Chrome using a Rust-based decoder. The implementation is feature-complete but not yet in Chrome stable. JPEG XL offers lossless JPEG recompression (~20% savings with zero quality loss) and competitive lossy compression. Not yet practical for web deployment, but worth monitoring for future adoption.
+Chromium reversed its 2022 removal decision in November 2025 and began restoring JPEG XL
+support via a Rust-based decoder. JPEG XL offers lossless JPEG recompression (roughly 20%
+savings with no quality loss) and competitive lossy compression.
+
+**Verify current shipping status before recommending it** — this has moved more than once.
+Until it is confirmed in stable across major browsers, treat AVIF/WebP as the deployment
+choice and JPEG XL as one to watch.
 
 ### Responsive Images
 - `srcset` attribute for multiple sizes
